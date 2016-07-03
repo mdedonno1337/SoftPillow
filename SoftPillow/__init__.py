@@ -22,5 +22,34 @@ class MyImage( Image.Image ):
         else:
             size = ( int( round( factor * self.width ) ), int( round( factor * self.height ) ) )
             return self.resize( size, resample )
+        
+    def chroma( self, color, tolerance = 0 ):
+        """
+            Change the color passed in argument to transparent.
+        """
+        datas = self.getdata()
+        newData = []
+        
+        dstcolor = ( 0, 0, 0, 0 )
+        
+        if tolerance == 0:
+            for r, g, b, a in datas:
+                if ( r, g, b ) == color:
+                    newData.append( dstcolor )
+                else:
+                    newData.append( ( r, g, b, a ) )
+        
+        else:
+            tolerance *= tolerance
+            keyr, keyg, keyb = color
+            for r, g, b, a in datas:
+                if pow( ( keyr - r ), 2 ) + pow( ( keyg - g ), 2 ) + pow( ( keyb - b ), 2 ) <= tolerance:
+                    newData.append( dstcolor )
+                else:
+                    newData.append( ( r, g, b, a ) )
+         
+        ret = self.copy()
+        ret.putdata( newData )
+        return ret
     
 Image.Image = MyImage
