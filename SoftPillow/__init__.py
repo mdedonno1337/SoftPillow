@@ -52,4 +52,19 @@ class MyImage( Image.Image ):
         ret.putdata( newData )
         return ret
     
+    def transparency( self, alpha ):
+        """
+            Change the trasparency of the image (the new trasparency is alpha *
+            the old trasparency).
+        """
+        datas = self.getdata()
+        newData = []
+        
+        for r, g, b, a in datas:
+            newData.append( ( r, g, b, int( a * alpha ) ) )
+        
+        ret = self.copy()
+        ret.putdata( newData )
+        return ret
+    
 Image.Image = MyImage
