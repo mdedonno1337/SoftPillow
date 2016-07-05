@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from PIL import Image
-from Image import NEAREST
+from PIL.Image import NEAREST
 
 class MyImage( Image.Image ):
     def scale( self, factor, resample = NEAREST ):
