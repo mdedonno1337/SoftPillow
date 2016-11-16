@@ -3,6 +3,7 @@
 
 from PIL import Image
 from PIL.Image import NEAREST
+from PIL.ImageDraw import ImageDraw
 
 ################################################################################
 # 
@@ -73,3 +74,18 @@ class MyImage( Image.Image ):
         ret.putdata( newData )
         return ret
     
+################################################################################
+# 
+#    PIL.ImageDraw.ImageDraw overload
+# 
+################################################################################
+
+class MyImageDraw( ImageDraw ):
+    def rectangle( self, xy, fill = None, outline = None, width = 1, inner = False ):
+        if inner:
+            j = 1
+        else:
+            j = -1
+            
+        for i in xrange( width ):
+            super( MyImageDraw, self ).rectangle( [ xy[ 0 ] + j * i, xy[ 1 ] + j * i, xy[ 2 ] - j * i, xy[ 3 ] - j * i ], fill, outline )
