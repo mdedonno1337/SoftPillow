@@ -67,4 +67,3 @@ class MyImage( Image.Image ):
         ret.putdata( newData )
         return ret
     
-Image.Image = MyImage
