@@ -4,6 +4,12 @@
 from PIL import Image
 from PIL.Image import NEAREST
 
+################################################################################
+# 
+#    PIL.Image.Image overload
+# 
+################################################################################
+
 class MyImage( Image.Image ):
     def scale( self, factor, resample = NEAREST ):
         """
